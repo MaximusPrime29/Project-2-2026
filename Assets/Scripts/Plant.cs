@@ -5,11 +5,10 @@ public class Plant : MonoBehaviour
 
     public PlantData data;
 
-    
-
-
-    //public LightType requiredLight;
     public LightType currentZone = LightType.None;
+
+    public float currentWater = 50f;
+    public float drainRate =5f;
 
     private SpriteRenderer sr;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,12 +21,18 @@ public class Plant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        currentWater -= drainRate * Time.deltaTime;
+        bool waterOk = IsWaterHealthy();
+        bool lightOk =currentZone== data.requiredLight;
+
+
         if (currentZone == LightType.None)
         {
             sr.color = Color.gray;
             //Debug.Log("current zone is" + currentZone + "requiredlight is" + requiredLight);
         }
-        else if (currentZone == data.requiredLight)
+        else if (waterOk && lightOk)
         {
 
             sr.color = Color.green;
@@ -38,6 +43,7 @@ public class Plant : MonoBehaviour
         {
             sr.color = Color.red;
         }
+        
 
 
 
@@ -69,6 +75,17 @@ public class Plant : MonoBehaviour
             currentZone = LightType.None;
         }
         
+    }
+
+    bool IsWaterHealthy()
+    {
+
+        float min = data.idealWater - data.tolerance;
+        float max = data.idealWater + data.tolerance;
+        return currentWater >= min && currentWater <= max;
+
+        
+
     }
 
 }

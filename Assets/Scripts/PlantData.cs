@@ -7,6 +7,9 @@ public class PlantData : ScriptableObject
 
     public LightType requiredLight;
 
+    public float idealWater;
+    public float tolerance;
+
     public float minWater;
     public float maxWater;
     
