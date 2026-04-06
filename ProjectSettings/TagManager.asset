@@ -41,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: zone
+    uniqueID: 1913290179
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
